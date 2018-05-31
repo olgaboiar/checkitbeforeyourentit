@@ -1,14 +1,19 @@
 class WelcomeController < ApplicationController
-  #before_action :client
+  before_action :get_client
   
   def index
     if params[:building]
-      client = SODA::Client.new({:domain => "data.cityofnewyork.us", :app_token => ENV['NYC_OPEN_DATA_API_KEY']})
+      
       @passed = params[:building]
-      @response = client.get("b2iz-pps8", {"$limit" => 1, :boroid => 1})
+      @response = @client.get("b2iz-pps8", {"$limit" => 1, :boroid => 1})
       puts "test"
       puts @response
-      puts @response.first.registrationid
+      @latitude = @response.first.latitude
+      @longitude = @response.first.longitude
+      puts @longitude
+      puts "test1"
+      @coordinates = Geocoder.coordinates(@passed)
+      puts @coordinates[1]
     else
 
     end
@@ -16,9 +21,9 @@ class WelcomeController < ApplicationController
   end
 
 
-  # private
-  #   def client
-  #     client = SODA::Client.new({:domain => "data.cityofnewyork.us", :app_token => ENV['NYC_OPEN_DATA_API_KEY']})
-  #   end
-  # end
+  private
+    def get_client
+      @client = SODA::Client.new({:domain => "data.cityofnewyork.us", :app_token => ENV['NYC_OPEN_DATA_API_KEY']})
+    end
+  
 end

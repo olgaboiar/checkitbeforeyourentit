@@ -10,10 +10,12 @@ class WelcomeController < ApplicationController
       puts @response
       @latitude = @response.first.latitude
       @longitude = @response.first.longitude
+      puts @latitude
       puts @longitude
       puts "test1"
       @coordinates = Geocoder.coordinates(@passed)
-      puts @coordinates[1]
+      puts @coordinates
+      
     else
 
     end

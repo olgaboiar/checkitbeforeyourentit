@@ -7,7 +7,6 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%# <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_API_KEY']}&libraries=places" %> %>
     <%= javascript_include_tag 'main'%>
     <style>
       /* Always set the map height explicitly to define the size of the div
@@ -20,20 +19,7 @@
 
   <body>
     <%= yield %>
-
-      <script>
-      // This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-<%# 
-      %>
-    </script>
-
-
     <script src=<%="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_API_KEY']}&libraries=places&callback=initMap"%>
         async defer></script>
-    <!--<script src=<%="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_API_KEY']}&callback=initMap"%>
-    async defer></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=ENV['GOOGLE_API_KEY']&callback=initMap" async defer></script> -->
   </body>
 </html>

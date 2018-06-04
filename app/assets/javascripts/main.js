@@ -57,15 +57,18 @@ function initMap() {
 
         function displayViolation(){
             var streetName = place.address_components[1].long_name.replace(/(\d+)(?:st|nd|rd|th)/, "$1").toUpperCase();
+            var date = new Date();
+            date.setFullYear(date.getFullYear() - 3)
+            date = moment(date).format("YYYY-MM-DDTHH:MM:SS.000");
+            console.log(date);
             $.ajax({
                 url: "/welcome/search",
                 type: "GET",
                 data: {
-                  
-                  "where" : "housenumber='" + place.address_components[0].short_name + "' AND streetname='" + streetName + "' AND boro='" + place.address_components[3].long_name.toUpperCase() + "'" 
+                  "where" : "housenumber='" + place.address_components[0].short_name + "' AND streetname='" + streetName + "' AND boro='" + place.address_components[3].long_name.toUpperCase() + "' AND approveddate>'" + date + "'" 
                 }
             }).done(function(data) {
-         
+           
             });
         }
         

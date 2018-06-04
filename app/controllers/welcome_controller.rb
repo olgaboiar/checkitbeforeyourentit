@@ -1,27 +1,24 @@
 class WelcomeController < ApplicationController
   before_action :get_client
-  
-  def index
-    if params[:building]
-      
-      @passed = params[:building]
-      @response = @client.get("b2iz-pps8", {"$limit" => 1, :boroid => 1})
-      puts "test"
-      puts @response
-      @latitude = @response.first.latitude
-      @longitude = @response.first.longitude
-      puts @latitude
-      puts @longitude
-      puts "test1"
-      @coordinates = Geocoder.coordinates(@passed)
-      puts @coordinates
-      
-    else
 
-    end
-    
+  def index 
   end
 
+  def search
+    @record = "test"
+    @response = @client.get("b2iz-pps8", {"$limit" => params[:limit], "$where" => params[:where]})
+    
+    respond_to do |format|
+      if @response.empty?
+        format.js {render :success}
+      else
+        format.js {render :violations}
+        # format.json { render json: @freelancer.errors, status: :unprocessable_entity }
+      end
+    end
+
+
+  end
 
   private
     def get_client

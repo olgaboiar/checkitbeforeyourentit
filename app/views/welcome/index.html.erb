@@ -1,3 +1,4 @@
+<div class="container">
 <%= form_tag("#", method: "get") do %>
   <%= label_tag(:building, "Enter the rental building location:") %>
   <%= text_field_tag(:building) %>
@@ -10,5 +11,6 @@
       <span id="place-name"  class="title"></span><br>
       <span id="place-address"></span>
 </div>
-<div id="no-violations"></div>
+
 <div id="violations"></div>
+</div>

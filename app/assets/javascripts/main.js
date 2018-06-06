@@ -75,14 +75,14 @@ function initMap() {
         displayViolation();
 
         function displaySchoolZone(){
-            var polygon;
+            let polygon;
             let mySource = [];
             let mySchools = [];
             $.ajax({ url: "/welcome/school", type: "GET", data: {"limit" : 1000}
                 }).done(function() {
                     let myData = $('.mycontainer');
                     let myLatLng = new google.maps.LatLng({lat: place.geometry.location.lat(), lng: place.geometry.location.lng()});
-                    var school = document.getElementById('school');
+                    let school = document.getElementById('school');
                     school.addEventListener('click', function(e) {
                         $.each(myData, function(index, value){
                             mySource.push($(value).data('source'));
@@ -99,6 +99,9 @@ function initMap() {
                             polygon = new google.maps.Polygon({paths: polygonCoords});
                             if (google.maps.geometry.poly.containsLocation(myLatLng, polygon)){
                                 console.log("school is" + mySchools[i]);
+                                let number = mySchools[i].replace(/[0-9]+\D/, '');
+                                console.log(number);
+                                $( "#school_number" ).replaceWith( "This building is zoned to public school " + number + ".");
                                 
                             } else {
                                 i ++;

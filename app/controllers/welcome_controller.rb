@@ -16,12 +16,23 @@ class WelcomeController < ApplicationController
   end
 
   def school
-    @school = @client.get("xehh-f7pi", {"$limit" => params[:limit], "$where" => params[:where]})
+    @school = Rails.cache.fetch("all_school_zones", expires_in: 24.hours) do
+      puts "cache not found, fetching from API"
+      puts DateTime.now
+      @client.get("xehh-f7pi", {"$limit" => params[:limit], "$where" => params[:where]})
+    end
+    
+
+
+    # @school = @client.get("xehh-f7pi", {"$limit" => params[:limit], "$where" => params[:where]})
     respond_to do |format|
       format.js {render :school}
     end
-    gon.school_zones = @school
-    puts @school
+    # gon.school_zones = @school
+    # puts @school
+
+    
+
   end
 
   private

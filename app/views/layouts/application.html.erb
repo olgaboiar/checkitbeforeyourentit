@@ -5,21 +5,14 @@
     <%= include_gon %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <%= stylesheet_link_tag 'main' %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'main'%>
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-    </style>
   </head>
 
   <body>
-    
+    <%= render "/shared/header" %>
     <%= yield %>
     <script src="https://momentjs.com/downloads/moment.js"></script>
     <script src=<%="https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_API_KEY']}&libraries=places&callback=initMap"%>

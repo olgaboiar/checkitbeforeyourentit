@@ -1,0 +1,7 @@
+<div id="school">
+  <div>There are <%= @school.length %> school zones in API</div>
+  <% @school.each do |item| %>
+  <%= content_tag :div, '', class: 'mycontainer', data: {source: item.the_geom}, id: item.dbn %>
+  
+  <% end %>
+</div>

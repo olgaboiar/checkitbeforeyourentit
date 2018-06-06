@@ -5,19 +5,23 @@ class WelcomeController < ApplicationController
   end
 
   def search
-    @record = "test"
     @response = @client.get("b2iz-pps8", {"$limit" => params[:limit], "$where" => params[:where]})
-    
     respond_to do |format|
       if @response.empty?
         format.js {render :success}
       else
         format.js {render :violations}
-        # format.json { render json: @freelancer.errors, status: :unprocessable_entity }
       end
     end
+  end
 
-
+  def school
+    @school = @client.get("xehh-f7pi", {"$limit" => params[:limit], "$where" => params[:where]})
+    respond_to do |format|
+      format.js {render :school}
+    end
+    gon.school_zones = @school
+    puts @school
   end
 
   private

@@ -50,22 +50,22 @@ function initMap() {
             (place.address_components[2] && place.address_components[2].short_name || '')
         ].join(' ');
         }
-        console.log(place.address_components);
+        
         infowindowContent.children['place-icon'].src = place.icon;
         infowindowContent.children['place-address'].textContent = address;
         infowindow.open(map, marker);
 
         function displayViolation(){
             var streetName = place.address_components[1].long_name.replace(/(\d+)(?:st|nd|rd|th)/, "$1").toUpperCase();
-            var date = new Date();
-            date.setFullYear(date.getFullYear() - 3)
-            date = moment(date).format("YYYY-MM-DDTHH:MM:SS.000");
-            console.log(date);
+            // var date = new Date();
+            // date.setFullYear(date.getFullYear() - 3)
+            // date = moment(date).format("YYYY-MM-DDTHH:MM:SS.000");
+            
             $.ajax({
                 url: "/welcome/search",
                 type: "GET",
                 data: {
-                  "where" : "housenumber='" + place.address_components[0].short_name + "' AND streetname='" + streetName + "' AND boro='" + place.address_components[3].long_name.toUpperCase() + "' AND approveddate>'" + date + "'" 
+                  "where" : "housenumber='" + place.address_components[0].short_name + "' AND streetname='" + streetName + "' AND boro='" + place.address_components[3].long_name.toUpperCase() + "'" 
                 }
             }).done(function(data) {
            
@@ -73,6 +73,43 @@ function initMap() {
         }
         
         displayViolation();
+
+        function displaySchoolZone(){
+            var polygon;
+            let mySource = [];
+            let mySchools = [];
+            $.ajax({ url: "/welcome/school", type: "GET", data: {"limit" : 1000}
+                }).done(function() {
+                    let myData = $('.mycontainer');
+                    let myLatLng = new google.maps.LatLng({lat: place.geometry.location.lat(), lng: place.geometry.location.lng()});
+                    var school = document.getElementById('school');
+                    school.addEventListener('click', function(e) {
+                        $.each(myData, function(index, value){
+                            mySource.push($(value).data('source'));
+                            mySchools.push($(value).attr('id'));
+                        });
+                        let i = 0;
+                        
+                        mySource.forEach(function(entry){
+                            let n
+                            let polygonCoords = [];
+                            entry.coordinates[0][0].forEach(function(item){
+                                polygonCoords.push({lat: item[1], lng: item[0]})
+                            });
+                            polygon = new google.maps.Polygon({paths: polygonCoords});
+                            if (google.maps.geometry.poly.containsLocation(myLatLng, polygon)){
+                                console.log("school is" + mySchools[i]);
+                                
+                            } else {
+                                i ++;
+                            };
+                             
+                        });            
+                    });         
+                });
+        }
+
+        displaySchoolZone();
     });
 
 }

@@ -1,7 +1,4 @@
 <div id="violations">
-<div>Showing recorded violations for the past 3 years</div>
-<% @response.each do |violation| %>
-           <div> <%= violation.approveddate %> </div> 
-           <div> <%= violation.novdescription %> </div> 
-           
-         <% end %></div>
+  <div>There are <%= @response.length %> violations for this building</div>
+  <div>See the most recent 5 violations</div>
+</div>

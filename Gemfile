@@ -28,6 +28,7 @@ gem 'soda-ruby', :require => 'soda'
 gem 'geocoder'
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.1.1'
+gem 'gon'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'

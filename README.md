@@ -1,24 +1,9 @@
-# README
+Check It Before You Rent It - is a web application developed as a capstone project during the New York Code and Design Academy Web Development Intensive Fellowship Programm.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Application has two major functions - checking the rental building for recorded violations, and checking which public school is zoned for this building.
 
-Things you may want to cover:
+Technologies used:
 
-* Ruby version
+Ruby on Rails, Javascript, Jquery, Bootstrap, PostgresQL, Devise, Figaro, Google Maps API, NYC Open Data API.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Deployed to Heroku and available on https://checkitbeforeyourentit.herokuapp.com

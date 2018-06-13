@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  get 'welcome/index'
-  get 'welcome/search'
-  get 'welcome/school'
+  root 'welcome#index'
+  get 'welcome/index', to: 'welcome#index'
+  get 'welcome/search', to: 'welcome#search'
+  get 'welcome/school', to: 'welcome#school'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -8,10 +8,18 @@ function initMap() {
     var strictBounds = document.getElementById('strict-bounds-selector');
     var autocomplete = new google.maps.places.Autocomplete(input);
 
+    google.maps.event.addDomListener(input, 'keydown', function(event) { 
+        if (event.keyCode === 13) { 
+            event.preventDefault(); 
+        }
+    }); 
+    
+
     // Bind the map's bounds (viewport) property to the autocomplete object,
     // so that the autocomplete requests use the current map bounds for the
     // bounds option in the request.
     autocomplete.bindTo('bounds', map);
+    
 
     var infowindow = new google.maps.InfoWindow();
     var infowindowContent = document.getElementById('infowindow-content');
